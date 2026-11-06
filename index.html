@@ -320,7 +320,7 @@
             <footer className="py-12 px-6 border-t border-brand-brown/10 bg-brand-cream">
                 <div className="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
                     <div className="text-center md:text-left">
-                        <div className="font-serif text-2xl font-bold mb-2">AL·ALBA</div>
+                        <img src="assets/images/LOGO-ALALBA-NAVBAR.png" alt="AL·ALBA Logo" className="h-8 md:h-12 w-auto object-contain mx-auto md:mx-0 mb-2" />
                         <p className="text-sm opacity-60 italic">"Dando forma a la fe con tecnología y corazón."</p>
                     </div>
                     <div className="flex flex-wrap justify-center gap-4 sm:gap-6 text-xs sm:text-sm font-medium uppercase tracking-widest">
@@ -377,17 +377,17 @@
                                     <i data-lucide="x" className="w-6 h-6"></i>
                                 </button>
 
-                                <div className="grid md:grid-cols-2">
-                                    <div className="h-[450px] md:h-[700px] bg-white flex items-center justify-center p-4 sm:p-8">
+                                <div className="flex flex-col md:grid md:grid-cols-2 overflow-y-auto max-h-[85vh] md:max-h-none">
+                                    <div className="h-[300px] sm:h-[400px] md:h-[600px] lg:h-[700px] bg-white flex items-center justify-center p-4 sm:p-8 shrink-0">
                                         <img src={selectedProduct.image} alt={selectedProduct.name} className="max-w-full max-h-full object-contain drop-shadow-xl" />
                                     </div>
-                                    <div className="p-8 sm:p-12 flex flex-col justify-center space-y-6">
+                                    <div className="p-6 sm:p-12 flex flex-col justify-center space-y-6">
                                         <div className="space-y-2">
                                             <span className="text-xs uppercase tracking-widest font-bold opacity-60">{selectedProduct.category}</span>
-                                            <h2 className="font-serif text-3xl md:text-4xl font-bold text-brand-brown">{selectedProduct.name}</h2>
+                                            <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl font-bold text-brand-brown">{selectedProduct.name}</h2>
                                         </div>
-                                        <p className="text-lg opacity-80 leading-relaxed italic">{selectedProduct.description}</p>
-                                        <div className="text-3xl font-bold text-brand-brown">{selectedProduct.price}€</div>
+                                        <p className="text-base sm:text-lg opacity-80 leading-relaxed italic">{selectedProduct.description}</p>
+                                        <div className="text-2xl sm:text-3xl font-bold text-brand-brown">{selectedProduct.price}€</div>
 
                                         {!isNaming ? (
                                             <button
@@ -399,7 +399,7 @@
                                         ) : (
                                             <div className="space-y-4 animate-fade-in">
                                                 <p className="text-sm font-medium text-brand-brown">Para personalizar tu pedido, por favor dinos tu nombre:</p>
-                                                <div className="flex gap-2">
+                                                <div className="flex flex-col sm:flex-row gap-2">
                                                     <input
                                                         type="text"
                                                         value={customerName}
