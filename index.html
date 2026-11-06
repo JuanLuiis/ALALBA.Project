@@ -47,12 +47,29 @@
             from { opacity: 0; transform: translateY(-10px); }
             to { opacity: 1; transform: translateY(0); }
         }
-        .mobile-link-hover {
+
+        /* Efecto elegante para los botones del menú móvil */
+        .mobile-link-premium {
+            position: relative;
             transition: all 0.3s ease;
+            overflow: hidden;
         }
-        .mobile-link-hover:hover {
-            padding-left: 1rem;
+        .mobile-link-premium:hover {
             color: #5c4033;
+            transform: translateX(10px);
+        }
+        .mobile-link-premium::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0%;
+            height: 2px;
+            background-color: #5c4033;
+            transition: width 0.3s ease;
+        }
+        .mobile-link-premium:hover::after {
+            width: 100%;
         }
     </style>
 </head>
@@ -108,9 +125,9 @@
                     {/* Mobile Dropdown with Dynamic Effects */}
                     {isOpen && (
                         <div className="md:hidden absolute top-full left-0 w-full bg-brand-cream border-t border-brand-brown/10 py-8 px-6 flex flex-col space-y-6 text-center font-medium uppercase tracking-widest text-sm shadow-2xl mobile-menu-enter">
-                            <a href="#inicio" onClick={() => setIsOpen(false)} className="py-2 mobile-link-hover transition-all">Inicio</a>
-                            <a href="#catalogo" onClick={() => setIsOpen(false)} className="py-2 mobile-link-hover transition-all">Catálogo</a>
-                            <a href="#contacto" onClick={() => setIsOpen(false)} className="py-2 mobile-link-hover transition-all">Contacto</a>
+                            <a href="#inicio" onClick={() => setIsOpen(false)} className="py-2 mobile-link-premium transition-all">Inicio</a>
+                            <a href="#catalogo" onClick={() => setIsOpen(false)} className="py-2 mobile-link-premium transition-all">Catálogo</a>
+                            <a href="#contacto" onClick={() => setIsOpen(false)} className="py-2 mobile-link-premium transition-all">Contacto</a>
                         </div>
                     )}
                 </nav>
