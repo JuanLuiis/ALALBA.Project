@@ -137,12 +137,12 @@
         // --- DATA ---
         const categories = ["Todos", "Vírgenes", "Santos", "Figuras religiosas", "Decoración", "Otros"];
         const products = [
-            { id: 1, name: "Virgen de Guadalupe", category: "Vírgenes", description: "Figura detallada en acabado seda, ideal para altares personales.", price: 25.00, image: "https://images.unsplash.com/photo-1548625149-f65376226c3a?q=80&w=500&auto=format&fit=crop" },
-            { id: 2, name: "San Judas Tadeo", category: "Santos", description: "Representación clásica del patrón de las causas difíciles.", price: 20.00, image: "https://images.unsplash.com/photo-1590076175576-02f1177f7737?q=80&w=500&auto=format&fit=crop" },
-            { id: 3, name: "Cruz Minimalista", category: "Decoración", description: "Diseño contemporáneo que fusiona fe y modernidad.", price: 15.00, image: "https://images.unsplash.com/photo-1544427920-c4eb77ef2677?q=80&w=500&auto=format&fit=crop" },
-            { id: 4, name: "Sagrada Familia", category: "Figuras religiosas", description: "Set de tres piezas con acabado premium en blanco marfil.", price: 45.00, image: "https://images.unsplash.com/photo-1515633501334-c5a9638657f3?q=80&w=500&auto=format&fit=crop" },
-            { id: 5, name: "Rosario Articulado", category: "Otros", description: "Pieza de devoción impresa con precisión milimétrica.", price: 12.00, image: "https://images.unsplash.com/photo-1589118949245-7d38baf380d6?q=80&w=500&auto=format&fit=crop" },
-            { id: 6, name: "Corazón de María", category: "Vírgenes", description: "Detalle delicado para regalo o meditación.", price: 18.00, image: "https://images.unsplash.com/photo-1578301978693-852d40359f93?q=80&w=500&auto=format&fit=crop" },
+            { id: 1, name: "Virgen de Guadalupe", category: "Vírgenes", description: "Figura detallada en acabado seda, ideal para altares personales.", price: 25.00, image: "assets/images/catalogo/Producto 1.jpg" },
+            { id: 2, name: "San Judas Tadeo", category: "Santos", description: "Representación clásica del patrón de las causas difíciles.", price: 20.00, image: "assets/images/catalogo/Producto 2.jpg" },
+            { id: 3, name: "Cruz Minimalista", category: "Decoración", description: "Diseño contemporáneo que fusiona fe y modernidad.", price: 15.00, image: "assets/images/catalogo/Producto 3.jpg" },
+            { id: 4, name: "Sagrada Familia", category: "Figuras religiosas", description: "Set de tres piezas con acabado premium en blanco marfil.", price: 45.00, image: "assets/images/catalogo/Producto 4.jpg" },
+            { id: 5, name: "Rosario Articulado", category: "Otros", description: "Pieza de devoción impresa con precisión milimétrica.", price: 12.00, image: "assets/images/catalogo/Producto 5.jpg" },
+            { id: 6, name: "Corazón de María", category: "Vírgenes", description: "Detalle delicado para regalo o meditación.", price: 18.00, image: "assets/images/catalogo/Producto 6.jpg" },
         ];
 
         const Navbar = () => {
@@ -213,19 +213,16 @@
                     <div className="relative fade-in" style={{animationDelay: '0.3s'}}>
                         <div className="absolute -top-10 -left-10 w-64 h-64 bg-brand-creamDark rounded-full blur-3xl opacity-50"></div>
 
-                        {/* Elemento Logo: Imagen de la Cruz REAL sin rotación */}
+                        {/* Elemento Logo: Imagen*/}
                         <div className="relative z-10 flex justify-center items-center w-full h-[300px] sm:h-[500px] md:h-[600px] lg:h-[650px]">
                             <div className="relative transition-all duration-500 float-logo">
                                 <div className="logo-glow"></div>
                                 <img
-                                    src="assets/images/LOGO-ALALBA.jpg"
-                                    className="w-48 h-auto sm:w-64 md:w-80 lg:w-[500px] object-contain drop-shadow-2xl relative z-10"
+                                    src="assets/images/LOGO-ALALBA.png"
+                                    className="w-64 h-auto sm:w-80 md:w-[450px] lg:w-[650px] object-contain shadow-md transition-all duration-700 hover:scale-105 hover:shadow-lg relative z-10"
                                     alt="Logo AL·ALBA"
                                     onError={(e) => {
-                                        e.target.style.display = 'none';
-                                        const fallback = document.createElement('div');
-                                        fallback.innerHTML = '<div class="relative w-48 h-48 sm:w-64 sm:h-64 md:w-80 md:h-80 flex items-center justify-center"><div class="absolute w-8 h-48 sm:h-64 md:h-80 bg-brand-brown rounded-full"></div><div class="absolute w-32 h-8 sm:w-48 sm:h-12 md:w-64 md:h-16 bg-brand-brown rounded-full" style="top: 25%"></div></div>';
-                                        e.target.parentNode.appendChild(fallback.firstChild);
+                                        console.error("Error cargando logo:", e);
                                     }}
                                 />
                             </div>
@@ -279,7 +276,7 @@
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
                         {filtered.map(p => (
                             <div key={p.id} onClick={() => onProductClick(p)} className="product-card bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 group transform hover:-translate-y-2 cursor-pointer">
-                                <div className="relative h-56 sm:h-64 overflow-hidden">
+                                <div className="relative h-80 sm:h-[450px] overflow-hidden">
                                     <img src={p.image} className="w-full h-full object-cover transition-transform duration-500" alt={p.name} />
                                 </div>
                                 <div className="p-6 sm:p-8">
@@ -354,7 +351,7 @@
                 const phoneNumber = "34695604563";
                 const catalogUrl = `${window.location.origin}${window.location.pathname}#catalogo`;
                 const nameToUse = customerName.trim() || "Cliente";
-                const message = `¡Hola AL·ALBA! 👋 Mi nombre es *${nameToUse}*. Estoy interesado en adquirir la pieza: *${product.name}* con un valor de *${product.price}€*. \n\nPuedes ver el catálogo completo aquí: ${catalogUrl}`;
+                const message = `¡Hola AL·ALBA! Mi nombre es *${nameToUse}*. Estoy interesado en adquirir la pieza: *${product.name}* con un valor de *${product.price}€*. \n\nPuedes ver el catálogo completo aquí: ${catalogUrl}`;
                 window.open(`https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`, '_blank');
             };
 
