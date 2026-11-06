@@ -72,15 +72,6 @@
             width: 100%;
         }
 
-        /* Rotación pura sobre el eje Z */
-        @keyframes rotateZ {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-        .animate-rotate-z {
-            animation: rotateZ 20s linear infinite;
-        }
-
         /* Filtro para ajustar el color de la imagen a la marca */
         .brand-color-filter {
             filter: sepia(1) saturate(1.5) hue-rotate(340deg) brightness(0.7) contrast(1.2);
@@ -126,7 +117,7 @@
                         </div>
 
                         {/* Logo (Right on mobile, Left on desktop) */}
-                        <div className="font-serif text-2xl font-bold tracking-tighter text-brand-brown md:order-1 order-2">AL·ALBA</div>
+                        <img src="LOGO-ALALBA-NAVBAR.png" alt="AL·ALBA Logo" className="h-12 w-auto object-contain md:order-1 order-2 transition-transform hover:scale-105 duration-300" />
 
                         {/* Desktop Menu */}
                         <div className="hidden md:flex space-x-8 font-medium text-sm uppercase tracking-widest order-3">
@@ -170,15 +161,15 @@
                     <div className="relative fade-in" style={{animationDelay: '0.3s'}}>
                         <div className="absolute -top-10 -left-10 w-64 h-64 bg-brand-creamDark rounded-full blur-3xl opacity-50"></div>
 
-                        {/* Elemento 3D: Imagen de Cruz real con rotación eje Z y filtro de color */}
+                        {/* Elemento Logo: Imagen de la Cruz REAL sin rotación */}
                         <div className="relative z-10 flex justify-center items-center w-full h-[350px] sm:h-[450px] md:h-[500px]">
-                            <div className="animate-rotate-z transition-all duration-500">
+                            <div className="transition-all duration-500">
                                 <img
-                                    src="cruz.png"
-                                    className="w-48 h-auto sm:w-64 md:w-80 object-contain brand-color-filter filter drop-shadow-2xl"
-                                    alt="Cruz Religiosa"
+                                    src="LOGO-ALALBA.jpg"
+                                    className="w-48 h-auto sm:w-64 md:w-80 object-contain drop-shadow-2xl"
+                                    alt="Logo AL·ALBA"
                                     onError={(e) => {
-                                        // Si la imagen no está en la carpeta, mostramos la cruz geométrica elegante como fallback
+                                        // Fallback elegante en caso de que la imagen no esté presente
                                         e.target.style.display = 'none';
                                         const fallback = document.createElement('div');
                                         fallback.innerHTML = '<div class="relative w-48 h-48 sm:w-64 sm:h-64 md:w-80 md:h-80 flex items-center justify-center"><div class="absolute w-8 h-48 sm:h-64 md:h-80 bg-brand-brown rounded-full"></div><div class="absolute w-32 h-8 sm:w-48 sm:h-12 md:w-64 md:h-16 bg-brand-brown rounded-full" style="top: 25%"></div></div>';
@@ -254,7 +245,7 @@
         };
 
         const Contact = () => (
-            <section id="contacto" className="py-16 md:py-24 px-6 bg-brand-brown text-brand-cream">
+            <section id="contacto" className="py-16 md:py-24 px-6 bg-brand-brown text-brand-//cream">
                 <div className="max-w-3xl mx-auto bg-brand-cream text-brand-brown rounded-3xl p-8 sm:p-12 text-center shadow-2xl relative overflow-hidden">
                     <div className="absolute top-0 right-0 p-4 opacity-10">
                         <i data-lucide="mail" className="w-24 h-24 sm:w-32 sm:h-32"></i>
