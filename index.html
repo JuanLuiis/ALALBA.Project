@@ -38,6 +38,22 @@
         .product-card:hover img { transform: scale(1.05); }
         .fade-in { animation: fadeIn 1s ease-out forwards; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* Animación personalizada para el menú móvil */
+        .mobile-menu-enter {
+            animation: slideDown 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .mobile-link-hover {
+            transition: all 0.3s ease;
+        }
+        .mobile-link-hover:hover {
+            padding-left: 1rem;
+            color: #5c4033;
+        }
     </style>
 </head>
 <body class="antialiased">
@@ -73,7 +89,7 @@
 
                         {/* Mobile Menu Button (Left on mobile) */}
                         <div className="md:hidden order-1">
-                            <button onClick={() => setIsOpen(!isOpen)} className="text-brand-brown p-2">
+                            <button onClick={() => setIsOpen(!isOpen)} className="text-brand-brown p-2 transition-transform active:scale-90">
                                 <i data-lucide={isOpen ? "x" : "menu"}></i>
                             </button>
                         </div>
@@ -89,12 +105,12 @@
                         </div>
                     </div>
 
-                    {/* Mobile Dropdown */}
+                    {/* Mobile Dropdown with Dynamic Effects */}
                     {isOpen && (
-                        <div className="md:hidden absolute top-full left-0 w-full bg-brand-cream border-t border-brand-brown/10 py-6 px-6 flex flex-col space-y-4 text-center font-medium uppercase tracking-widest text-sm shadow-xl">
-                            <a href="#inicio" onClick={() => setIsOpen(false)} className="py-2 hover:text-brand-brownLight">Inicio</a>
-                            <a href="#catalogo" onClick={() => setIsOpen(false)} className="py-2 hover:text-brand-brownLight">Catálogo</a>
-                            <a href="#contacto" onClick={() => setIsOpen(false)} className="py-2 hover:text-brand-brownLight">Contacto</a>
+                        <div className="md:hidden absolute top-full left-0 w-full bg-brand-cream border-t border-brand-brown/10 py-8 px-6 flex flex-col space-y-6 text-center font-medium uppercase tracking-widest text-sm shadow-2xl mobile-menu-enter">
+                            <a href="#inicio" onClick={() => setIsOpen(false)} className="py-2 mobile-link-hover transition-all">Inicio</a>
+                            <a href="#catalogo" onClick={() => setIsOpen(false)} className="py-2 mobile-link-hover transition-all">Catálogo</a>
+                            <a href="#contacto" onClick={() => setIsOpen(false)} className="py-2 mobile-link-hover transition-all">Contacto</a>
                         </div>
                     )}
                 </nav>
