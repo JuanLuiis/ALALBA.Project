@@ -3,175 +3,238 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JLImpresions3D | Innovación en Fabricación Digital</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600;700&family=Roboto:wght@300;400;500&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
-    <!-- Three.js para el modelo 3D -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <title>AL·ALBA | Fe, Diseño y Devoción en 3D</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://unpkg.com/framer-motion@10.16.4/dist/framer-motion.js"></script>
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            cream: '#ffecc3',
+                            brown: '#352319',
+                            brownLight: '#5c4033',
+                            creamDark: '#f5dfb1',
+                        },
+                    },
+                    fontFamily: {
+                        sans: ['Nunito', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style>
+        html { scroll-behavior: smooth; }
+        body { background-color: #ffecc3; color: #352319; overflow-x: hidden; }
+        .glass { background: rgba(255, 236, 195, 0.8); backdrop-filter: blur(10px); }
+        .product-card:hover img { transform: scale(1.05); }
+        .fade-in { animation: fadeIn 1s ease-out forwards; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
 </head>
 <body>
-    <!-- Cursor Personalizado (Filamento BambuLab) -->
-    <div id="custom-cursor">
-        <div class="filament-core"></div>
-    </div>
+    <div id="root"></div>
 
-    <!-- Destello de fondo dinámico -->
-    <div id="bg-glow"></div>
+    <script type="text/babel">
+        const { useState, useEffect } = React;
 
-    <nav class="navbar">
-        <div class="nav-container">
-            <a href="#" class="logo">
-                <div class="logo-icon"><i data-lucide="box"></i></div>
-                <span>JL<span class="text-primary">Impresions3D</span></span>
-            </a>
-            <ul class="nav-links">
-                <li><a href="#inicio">Inicio</a></li>
-                <li><a href="#proyectos">Casos Prácticos</a></li>
-                <li><a href="#sobre-mi">Experiencia</a></li>
-                <li><a href="#contacto" class="btn-primary">Cotizar Proyecto</a></li>
-            </ul>
-            <div class="menu-toggle" id="mobile-menu"><i data-lucide="menu"></i></div>
-        </div>
-    </nav>
+        // --- DATA ---
+        const categories = ["Todos", "Vírgenes", "Santos", "Figuras religiosas", "Decoración", "Otros"];
+        const products = [
+            { id: 1, name: "Virgen de Guadalupe", category: "Vírgenes", description: "Figura detallada en acabado seda, ideal para altares personales.", price: 25.00, image: "https://images.unsplash.com/photo-1548625149-f65376226c3a?q=80&w=500&auto=format&fit=crop" },
+            { id: 2, name: "San Judas Tadeo", category: "Santos", description: "Representación clásica del patrón de las causas difíciles.", price: 20.00, image: "https://images.unsplash.com/photo-1590076175576-02f1177f7737?q=80&w=500&auto=format&fit=crop" },
+            { id: 3, name: "Cruz Minimalista", category: "Decoración", description: "Diseño contemporáneo que fusiona fe y modernidad.", price: 15.00, image: "https://images.unsplash.com/photo-1544427920-c4eb77ef2677?q=80&w=500&auto=format&fit=crop" },
+            { id: 4, name: "Sagrada Familia", category: "Figuras religiosas", description: "Set de tres piezas con acabado premium en blanco marfil.", price: 45.00, image: "https://images.unsplash.com/photo-1515633501334-c5a9638657f3?q=80&w=500&auto=format&fit=crop" },
+            { id: 5, name: "Rosario Articulado", category: "Otros", description: "Pieza de devoción impresa con precisión milimétrica.", price: 12.00, image: "https://images.unsplash.com/photo-1589118949245-7d38baf380d6?q=80&w=500&auto=format&fit=crop" },
+            { id: 6, name: "Corazón de María", category: "Vírgenes", description: "Detalle delicado para regalo o meditación.", price: 18.00, image: "https://images.unsplash.com/photo-1578301978693-852d40359f93?q=80&w=500&auto=format&fit=crop" },
+        ];
 
-    <section id="inicio" class="hero">
-        <div class="container grid">
-            <div class="hero-text">
-                <span class="badge animate-pop">Precisión Micronizada</span>
-                <h1 class="animate-text">Soluciones Reales <br><span class="gradient-text">Impresas en 3D</span></h1>
-                <p class="animate-fade">De un prototipo funcional para tu empresa a una pieza artística única. En <strong>JLImpresions3D</strong> convertimos archivos digitales en herramientas tangibles que resuelven problemas del día a día.</p>
-                <div class="hero-btns">
-                    <a href="#proyectos" class="btn-primary">Ver Casos Reales <i data-lucide="arrow-right"></i></a>
-                    <a href="#sobre-mi" class="btn-secondary">Nuestra Tecnología</a>
-                </div>
-            </div>
-            <div class="hero-visual">
-                <div id="canvas-container">
-                    <div class="canvas-hint">Arrastra para rotar la pieza</div>
-                </div>
-            </div>
-        </div>
-    </section>
+        const Navbar = () => {
+            const [scrolled, setScrolled] = useState(false);
+            useEffect(() => {
+                const handleScroll = () => setScrolled(window.scrollY > 50);
+                window.addEventListener('scroll', handleScroll);
+                return () => window.removeEventListener('scroll', handleScroll);
+            }, []);
 
-    <section id="proyectos" class="projects">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="reveal">Casos Prácticos del <span class="gradient-text">Día a Día</span></h2>
-                <p class="reveal">No solo imprimimos figuras; resolvemos necesidades reales.</p>
-            </div>
-
-            <div class="filter-bar" id="filter-bar">
-                <button class="filter-btn active" data-filter="Todos">Todos</button>
-                <button class="filter-btn" data-filter="Repuestos">Repuestos</button>
-                <button class="filter-btn" data-filter="Industrial">Industrial</button>
-                <button class="filter-btn" data-filter="Hogar">Hogar</button>
-                <button class="filter-btn" data-filter="Arte">Arte</button>
-            </div>
-
-            <div class="projects-grid" id="projects-grid"></div>
-        </div>
-    </section>
-
-    <section id="sobre-mi" class="about">
-        <div class="container grid">
-            <div class="about-card glass-card">
-                <div class="profile-img">
-                    <i data-lucide="cpu"></i>
-                </div>
-                <h3>JLImpresions3D</h3>
-                <p class="mono text-primary">Especialistas en Manufactura Aditiva</p>
-                <div class="social-links" style="display: none;">
-                    <a href="#"><i data-lucide="instagram"></i></a>
-                    <a href="#"><i data-lucide="facebook"></i></a>
-                    <a href="#"><i data-lucide="mail"></i></a>
-                </div>
-
-            </div>
-            <div class="about-content">
-                <h2 class="reveal">Ingeniería aplicada a la <span class="gradient-text">Impresión</span></h2>
-                <p class="reveal">En JLImpresions3D nos enfocamos en la funcionalidad. Entendemos que una pieza debe resistir el calor, el peso o el desgaste. Por eso utilizamos materiales técnicos como PETG, ABS y filamentos reforzados con fibra de carbono.</p>
-
-                <div class="skills-grid">
-                    <div class="skill-item"><i data-lucide="settings"></i> Diseño CAD <span class="lvl">Experto</span></div>
-                    <div class="skill-item"><i data-lucide="layers"></i> Slicing Optimizado <span class="lvl">Máximo</span></div>
-                    <div class="skill-item"><i data-lucide="wrench"></i> Post-procesado <span class="lvl">Pro</span></div>
-                    <div class="skill-item"><i data-lucide="zap"></i> Entrega Rápida <span class="lvl">24-48h</span></div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="contacto" class="contact">
-        <div class="container">
-            <div class="section-header text-center">
-                <h2 class="reveal">Lleva tu idea al <span class="gradient-text">Mundo Físico</span></h2>
-                <p class="reveal">Envíanos tu archivo STL o cuéntanos tu problema y nosotros diseñamos la solución.</p>
-            </div>
-
-            <div class="contact-grid">
-                <div class="contact-info glass-card">
-                    <h3 class="mb-4">Contacto Directo</h3>
-                <div class="info-item" id="whatsapp-trigger" style="cursor: none;">
-                    <div class="whatsapp-pill">
-                        <i data-lucide="phone"></i>
-                        <span>WhatsApp</span>
-                    </div>
-                    <div class="info-text">
-                        <strong>Contacto Directo</strong>
-                        <p>+34 695 60 45 63</p>
-                    </div>
-                </div>
-                <div class="info-item"><i data-lucide="map-pin"></i> <div><strong>Taller</strong><p>España, Centro de Diseño 3D</p></div></div>
-            </div>
-
-                <form class="contact-form glass-card" id="contact-form">
-                    <div class="form-row">
-                        <div class="form-group" style="grid-column: span 2;">
-                            <label>Nombre</label>
-                            <input type="text" required placeholder="Tu nombre">
+            return (
+                <nav className={`fixed top-0 w-full z-50 transition-all duration-300 ${scrolled ? 'glass py-3 shadow-sm' : 'py-5 bg-transparent'}`}>
+                    <div className="max-w-6xl mx-auto px-6 flex justify-between items-center">
+                        <div className="font-serif text-2xl font-bold tracking-tighter text-brand-brown">AL·ALBA</div>
+                        <div className="hidden md:flex space-x-8 font-medium text-sm uppercase tracking-widest">
+                            <a href="#inicio" className="hover:text-brand-brownLight transition-colors">Inicio</a>
+                            <a href="#catalogo" className="hover:text-brand-brownLight transition-colors">Catálogo</a>
+                            <a href="#contacto" className="hover:text-brand-brownLight transition-colors">Contacto</a>
+                        </div>
+                        <div className="md:hidden">
+                            <i data-lucide="menu" className="cursor-pointer"></i>
                         </div>
                     </div>
+                </nav>
+            );
+        };
 
-                    <div class="form-group">
-                        <label>Tipo de Proyecto</label>
-                        <select>
-                            <option>Repuesto Industrial</option>
-                            <option>Diseño Personalizado</option>
-                            <option>Impresión de Miniaturas</option>
-                            <option>Otro</option>
-                        </select>
+        const Hero = () => (
+            <section id="inicio" className="relative min-h-screen flex items-center justify-center px-6 pt-20 overflow-hidden">
+                <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-center">
+                    <div className="fade-in space-y-8">
+                        <h1 className="font-serif text-5xl md:text-7xl font-bold leading-tight text-brand-brown">
+                            Fe, diseño y <br/><span className="italic font-normal">devoción</span> en cada detalle.
+                        </h1>
+                        <p className="text-lg text-brand-brown opacity-80 max-w-lg leading-relaxed">
+                            En AL·ALBA damos forma a la fe a través de la impresión 3D. Creamos piezas decorativas y artículos religiosos con dedicación, cuidando cada detalle para convertir la devoción en algo que puedas tener siempre cerca.
+                        </p>
+                        <div className="flex flex-col sm:flex-row gap-4">
+                            <a href="#catalogo" className="bg-brand-brown text-brand-cream px-8 py-4 rounded-full font-semibold text-center hover:bg-brand-brownLight transition-all transform hover:-translate-y-1 shadow-lg">
+                                Explorar Catálogo
+                            </a>
+                            <a href="#contacto" className="border-2 border-brand-brown text-brand-brown px-8 py-4 rounded-full font-semibold text-center hover:bg-brand-brown hover:text-brand-cream transition-all transform hover:-translate-y-1">
+                                Contactar
+                            </a>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label>Detalles del proyecto</label>
-                        <textarea rows="4" placeholder="Explícame qué necesitas..."></textarea>
+                    <div className="relative fade-in" style={{animationDelay: '0.3s'}}>
+                        <div className="absolute -top-10 -left-10 w-64 h-64 bg-brand-creamDark rounded-full blur-3xl opacity-50"></div>
+                        <img src="https://images.unsplash.com/photo-1548625149-f65376226c3a?q=80&w=800&auto=format&fit=crop"
+                             className="relative z-10 rounded-2xl shadow-2xl w-full object-cover h-[500px]"
+                             alt="Impresión 3D Religiosa" />
                     </div>
-                    <button type="submit" class="btn-primary full-width">Enviar Solicitud <i data-lucide="send"></i></button>
-                </form>
-            </div>
-        </div>
-    </section>
+                </div>
+            </section>
+        );
 
-    <div id="whatsapp-modal" class="modal">
-        <div class="modal-content glass-card">
-            <button id="close-modal" class="close-btn">&times;</button>
-            <div class="modal-body text-center">
-                <div class="whatsapp-icon"><i data-lucide="message-circle"></i></div>
-                <h2>Contacto Directo</h2>
-                <p>Habla con nosotros por WhatsApp para una cotización rápida.</p>
-                <p class="phone-number">+34 695 60 45 63</p>
-                <a href="https://wa.me/34695604563" target="_blank" class="btn-primary full-width">
-                    Abrir Chat de WhatsApp <i data-lucide="external-link"></i>
-                </a>
-            </div>
-        </div>
-    </div>
+        const Values = () => (
+            <section className="py-24 bg-brand-creamDark/30 px-6">
+                <div className="max-w-6xl mx-auto grid md:grid-cols-3 gap-12">
+                    {[
+                        { title: "Diseño con propósito", icon: "heart", desc: "Cada pieza es pensada para inspirar paz y reflexión." },
+                        { title: "Tecnología e innovación", icon: "cpu", desc: "Utilizamos la vanguardia de la impresión 3D para máxima precisión." },
+                        { title: "Devoción en cada detalle", icon: "sparkles", desc: "Cuidado artesanal en el acabado final de cada artículo." }
+                    ].map((val, i) => (
+                        <div key={i} className="text-center p-8 rounded-2xl bg-brand-cream hover:shadow-md transition-shadow group">
+                            <div className="w-16 h-16 bg-brand-brown text-brand-cream rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform">
+                                <i data-lucide={val.icon}></i>
+                            </div>
+                            <h3 className="font-serif text-xl font-bold mb-4">{val.title}</h3>
+                            <p className="opacity-70">{val.desc}</p>
+                        </div>
+                    ))}
+                </div>
+            </section>
+        );
 
-    <footer class="footer">
-        <p>&copy; 2026 <strong>JLImpresions3D</strong>. Calidad, Precisión y Pasión Digital.</p>
-    </footer>
+        const Catalog = () => {
+            const [filter, setFilter] = useState("Todos");
+            const filtered = filter === "Todos" ? products : products.filter(p => p.category === filter);
 
-    <script src="script.js"></script>
-    <script>lucide.createIcons();</script>
+            return (
+                <section id="catalogo" className="py-24 px-6 max-w-6xl mx-auto">
+                    <div className="text-center mb-16">
+                        <h2 className="font-serif text-4xl font-bold mb-4">Nuestro Catálogo</h2>
+                        <div className="flex flex-wrap justify-center gap-3 mt-8">
+                            {categories.map(cat => (
+                                <button
+                                    key={cat}
+                                    onClick={() => setFilter(cat)}
+                                    className={`px-5 py-2 rounded-full text-sm transition-all ${filter === cat ? 'bg-brand-brown text-brand-cream shadow-md' : 'bg-white text-brand-brown hover:bg-brand-creamDark'}`}
+                                >
+                                    {cat}
+                                </button>
+                            ))}
+                        </div>
+                    </div>
+                    <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                        {filtered.map(p => (
+                            <div key={p.id} className="product-card bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 group transform hover:-translate-y-2">
+                                <div className="relative h-64 overflow-hidden">
+                                    <img src={p.image} className="w-full h-full object-cover transition-transform duration-500" alt={p.name} />
+                                </div>
+                                <div className="p-6">
+                                    <div className="flex justify-between items-start mb-2">
+                                        <h3 className="font-serif text-xl font-bold">{p.name}</h3>
+                                        <span className="font-bold text-brand-brown">{p.price}€</span>
+                                    </div>
+                                    <p className="text-sm opacity-60 mb-6">{p.description}</p>
+                                    <button className="w-full py-3 border-2 border-brand-brown text-brand-brown rounded-xl font-semibold hover:bg-brand-brown hover:text-brand-cream transition-colors">
+                                        Consultar Información
+                                    </button>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </section>
+            );
+        };
+
+        const Contact = () => (
+            <section id="contacto" className="py-24 px-6 bg-brand-brown text-brand-cream">
+                <div className="max-w-3xl mx-auto bg-brand-cream text-brand-brown rounded-3xl p-12 text-center shadow-2xl relative overflow-hidden">
+                    <div className="absolute top-0 right-0 p-4 opacity-10">
+                        <i data-lucide="mail" className="w-32 h-32"></i>
+                    </div>
+                    <h2 className="font-serif text-4xl font-bold mb-6">Estamos aquí para ti.</h2>
+                    <p className="text-lg opacity-80 mb-12">¿Te interesa alguno de nuestros productos o tienes una idea en mente? Estaremos encantados de ayudarte.</p>
+
+                    <div className="grid sm:grid-cols-2 gap-6">
+                        <a href="tel:+34000000000" className="flex items-center justify-center gap-3 p-4 bg-white rounded-2xl shadow-sm hover:shadow-md transition-all group">
+                            <i data-lucide="phone" className="group-hover:scale-110 transition-transform"></i>
+                            <span className="font-semibold">Llamar ahora</span>
+                        </a>
+                        <a href="https://instagram.com/al-alba" target="_blank" className="flex items-center justify-center gap-3 p-4 bg-white rounded-2xl shadow-sm hover:shadow-md transition-all group">
+                            <i data-lucide="instagram" className="group-hover:scale-110 transition-transform"></i>
+                            <span className="font-semibold">Visitar Instagram</span>
+                        </a>
+                    </div>
+                </div>
+            </section>
+        );
+
+        const Footer = () => (
+            <footer className="py-12 px-6 border-t border-brand-brown/10 bg-brand-cream">
+                <div className="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
+                    <div className="text-center md:text-left">
+                        <div className="font-serif text-2xl font-bold mb-2">AL·ALBA</div>
+                        <p className="text-sm opacity-60 italic">"Dando forma a la fe con tecnología y corazón."</p>
+                    </div>
+                    <div className="flex gap-6 text-sm font-medium uppercase tracking-widest">
+                        <a href="#inicio" className="hover:underline">Inicio</a>
+                        <a href="#catalogo" className="hover:underline">Catálogo</a>
+                        <a href="#contacto" className="hover:underline">Contacto</a>
+                    </div>
+                    <div className="text-xs opacity-50">
+                        © {new Date().getFullYear()} AL·ALBA. Todos los derechos reservados.
+                    </div>
+                </div>
+            </footer>
+        );
+
+        const App = () => {
+            useEffect(() => {
+                lucide.createIcons();
+            }, []);
+
+            return (
+                <div className="min-h-screen font-sans">
+                    <Navbar />
+                    <Hero />
+                    <Values />
+                    <Catalog />
+                    <Contact />
+                    <Footer />
+                </div>
+            );
+        };
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
 </body>
 </html>
