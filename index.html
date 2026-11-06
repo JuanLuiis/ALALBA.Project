@@ -174,12 +174,15 @@
                         <div className="relative z-10 flex justify-center items-center w-full h-[350px] sm:h-[450px] md:h-[500px]">
                             <div className="animate-rotate-z transition-all duration-500">
                                 <img
-                                    src="C:/Users/juanl/Downloads/pngtree-textured-wooden-cross-png-image_14133340.png"
+                                    src="cruz.png"
                                     className="w-48 h-auto sm:w-64 md:w-80 object-contain brand-color-filter filter drop-shadow-2xl"
                                     alt="Cruz Religiosa"
                                     onError={(e) => {
-                                        // Fallback en caso de que la ruta local no sea accesible desde el navegador
-                                        e.target.src = "https://cdn-icons-png.flaticon.com/512/2904/2904755.png";
+                                        // Si la imagen no está en la carpeta, mostramos la cruz geométrica elegante como fallback
+                                        e.target.style.display = 'none';
+                                        const fallback = document.createElement('div');
+                                        fallback.innerHTML = '<div class="relative w-48 h-48 sm:w-64 sm:h-64 md:w-80 md:h-80 flex items-center justify-center"><div class="absolute w-8 h-48 sm:h-64 md:h-80 bg-brand-brown rounded-full"></div><div class="absolute w-32 h-8 sm:w-48 sm:h-12 md:w-64 md:h-16 bg-brand-brown rounded-full" style="top: 25%"></div></div>';
+                                        e.target.parentNode.appendChild(fallback.firstChild);
                                     }}
                                 />
                             </div>
