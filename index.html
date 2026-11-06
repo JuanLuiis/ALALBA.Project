@@ -80,6 +80,11 @@
         .animate-rotate-z {
             animation: rotateZ 20s linear infinite;
         }
+
+        /* Filtro para ajustar el color de la imagen a la marca */
+        .brand-color-filter {
+            filter: sepia(1) saturate(1.5) hue-rotate(340deg) brightness(0.7) contrast(1.2);
+        }
     </style>
 </head>
 <body class="antialiased">
@@ -165,13 +170,14 @@
                     <div className="relative fade-in" style={{animationDelay: '0.3s'}}>
                         <div className="absolute -top-10 -left-10 w-64 h-64 bg-brand-creamDark rounded-full blur-3xl opacity-50"></div>
 
-                        {/* Representación de Cruz Religiosa (Latina) hecha con HTML/CSS para precisión total */}
+                        {/* Elemento 3D: Imagen de Cruz real con rotación eje Z y filtro de color */}
                         <div className="relative z-10 flex justify-center items-center w-full h-[350px] sm:h-[450px] md:h-[500px]">
-                            <div className="animate-rotate-z text-brand-brown opacity-90 filter drop-shadow-2xl relative flex items-center justify-center">
-                                {/* Brazo Vertical */}
-                                <div className="absolute w-8 h-48 sm:h-64 md:h-80 bg-brand-brown rounded-full"></div>
-                                {/* Brazo Horizontal */}
-                                <div className="absolute w-32 h-8 sm:w-48 sm:h-12 md:w-64 md:h-16 bg-brand-brown rounded-full" style={{top: '25%'}}></div>
+                            <div className="animate-rotate-z transition-all duration-500">
+                                <img
+                                    src="https://pngtree.com/png-clipart/20240102/pngtree-textured-wooden-cross-png-image_14133340.png"
+                                    className="w-48 h-auto sm:w-64 md:w-80 object-contain brand-color-filter filter drop-shadow-2xl"
+                                    alt="Cruz Religiosa"
+                                />
                             </div>
                             <div className="absolute inset-0 bg-gradient-to-t from-brand-cream via-transparent to-transparent pointer-events-none"></div>
                         </div>
