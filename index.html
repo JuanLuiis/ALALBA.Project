@@ -71,6 +71,16 @@
         .mobile-link-premium:hover::after {
             width: 100%;
         }
+
+        /* Animación de rotación suave para la cruz */
+        @keyframes floatRotate {
+            0% { transform: rotate(0deg) translateY(0px); }
+            50% { transform: rotate(180deg) translateY(-20px); }
+            100% { transform: rotate(360deg) translateY(0px); }
+        }
+        .animate-float-rotate {
+            animation: floatRotate 12s linear infinite;
+        }
     </style>
 </head>
 <body class="antialiased">
@@ -155,9 +165,15 @@
                     </div>
                     <div className="relative fade-in" style={{animationDelay: '0.3s'}}>
                         <div className="absolute -top-10 -left-10 w-64 h-64 bg-brand-creamDark rounded-full blur-3xl opacity-50"></div>
-                        <img src="https://images.unsplash.com/photo-1548625149-f65376226c3a?q=80&w=800&auto=format&fit=crop"
-                             className="relative z-10 rounded-2xl shadow-2xl w-full object-cover h-[350px] sm:h-[450px] md:h-[500px]"
-                             alt="Impresión 3D Religiosa" />
+
+                        {/* Elemento 3D: Cruz flotante y rotando */}
+                        <div className="relative z-10 flex justify-center items-center w-full h-[350px] sm:h-[450px] md:h-[500px]">
+                            <div className="animate-float-rotate text-brand-brown opacity-90 filter drop-shadow-2xl">
+                                <i data-lucide="cross" className="w-48 h-48 sm:w-64 sm:h-64 md:w-80 md:h-80 stroke-[1.5]"></i>
+                            </div>
+                            {/* Overlay suave para integrar la figura con el fondo */}
+                            <div className="absolute inset-0 bg-gradient-to-t from-brand-cream via-transparent to-transparent pointer-events-none"></div>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -247,7 +263,7 @@
         );
 
         const Footer = () => (
-            <footer className="py-12 px-6 border-t border-brand-brown/10 bg-brand-cream">
+            <footer className="py-12 px-6 border-t border-brand-brown/10 bg-brand-//cream">
                 <div className="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
                     <div className="text-center md:text-left">
                         <div className="font-serif text-2xl font-bold mb-2">AL·ALBA</div>
