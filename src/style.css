@@ -1,0 +1,92 @@
+html { scroll-behavior: smooth; }
+body {
+    background-color: #ffecc3;
+    color: #352319;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+.glass { background: rgba(255, 236, 195, 0.8); backdrop-filter: blur(10px); }
+
+/* Smooth Transitions Global */
+.transition-smooth { transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); will-change: transform, opacity; }
+
+.product-card {
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: transform;
+}
+.product-card:hover img { transform: scale(1.05); transition: transform 0.6s cubic-bezier(0.33, 1, 0.68, 1); }
+
+.fade-in { animation: fadeIn 1.2s cubic-bezier(0.22, 1, 0.36, 1) forwards; will-change: transform, opacity; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+/* Modal Animations */
+.animate-fade-in { animation: modalFadeIn 0.3s ease-out forwards; will-change: opacity; }
+@keyframes modalFadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+.animate-scale-up { animation: modalScaleUp 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards; will-change: transform, opacity; }
+@keyframes modalScaleUp { from { transform: scale(0.95); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+
+/* Floating animation for the main logo - Enhanced for elegance */
+.float-logo {
+    animation: float 8s ease-in-out infinite;
+    will-change: transform;
+}
+@keyframes float {
+    0%, 100% { transform: translateY(0px) rotate(0deg) scale(1); }
+    33% { transform: translateY(-10px) rotate(0.5deg) scale(1.01); }
+    66% { transform: translateY(-5px) rotate(-0.5deg) scale(0.99); }
+}
+
+.logo-glow {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle, rgba(255,236,195,0.4) 0%, transparent 70%);
+    filter: blur(40px);
+    z-index: -1;
+    animation: pulseGlow 4s ease-in-out infinite;
+    will-change: opacity, transform;
+}
+@keyframes pulseGlow {
+    0%, 100% { opacity: 0.5; transform: scale(1); }
+    50% { opacity: 0.8; transform: scale(1.1); }
+}
+
+/* Animación personalizada para el menú móvil */
+.mobile-menu-enter {
+    animation: slideDown 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    will-change: transform, opacity;
+}
+@keyframes slideDown {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Efecto elegante para los botones del menú móvil */
+.mobile-link-premium {
+    position: relative;
+    transition: all 0.3s ease;
+    overflow: hidden;
+}
+.mobile-link-premium:hover {
+    color: #5c4033;
+    transform: translateX(10px);
+}
+.mobile-link-premium::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0%;
+    height: 2px;
+    background-color: #5c4033;
+    transition: width 0.3s ease;
+}
+.mobile-link-premium:hover::after {
+    width: 100%;
+}
+
+/* Filtro para ajustar el color de la imagen a la marca */
+.brand-color-filter {
+    filter: sepia(1) saturate(1.5) hue-rotate(340deg) brightness(0.7) contrast(1.2);
+}
